@@ -15,7 +15,6 @@
     "build:tailwind": "tailwindcss build src/css/tailwind.css -o src/css/tailwind.output.css",
     "prestart": "npm run build:tailwind",
     "prebuild": "npm run build:tailwind",
-    
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

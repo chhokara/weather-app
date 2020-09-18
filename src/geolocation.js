@@ -1,3 +1,5 @@
+// retrieves and stores latitude and longitude
+
 export const getPosition = () => {
     if (navigator.geolocation){  
       navigator.geolocation.getCurrentPosition(storeCoordinates);

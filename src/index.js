@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import SearchBar from "./components/SearchBar"
-import './css/tailwind.output.css'
+import App from "./components/App/App";
+import "./css/tailwind.output.css";
 
 ReactDOM.render(
   <React.StrictMode>
-  <SearchBar />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

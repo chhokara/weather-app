@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getPosition } from "../geolocation";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 import Geocode from "react-geocode";
-import axios from "axios";
 
 //search bar component
 // - uses googles autocomplete and geocode API's to get location
 // - queries weather api using location
 
-export default function SearchBar() {
+export default function SearchBar({ updateCoords }) {
   getPosition();
 
   // grabbing lat and lon for current location
@@ -19,7 +18,6 @@ export default function SearchBar() {
   const lat = localStorage.getItem("latitude");
   const lon = localStorage.getItem("longitude");
 
-  const [weather, setWeather] = useState("");
   const [location, setLocation] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: lat,
@@ -27,23 +25,7 @@ export default function SearchBar() {
   });
 
   useEffect(() => {
-    const search = async (lat, lon) => {
-      const KEY = "a7b37fc8fa9faed677e7e0bd192282ed";
-      const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${KEY}`
-      );
-
-      console.log(data);
-      setWeather(data);
-    };
-
-    const timeOutID = setTimeout(() => {
-      search(coordinates.lat, coordinates.lng);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeOutID);
-    };
+    updateCoords(coordinates);
   }, [coordinates]);
 
   const handleSelect = async (value) => {

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getPosition } from "../geolocation";
+import React, { useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -10,30 +9,15 @@ import Geocode from "react-geocode";
 // - uses googles autocomplete and geocode API's to get location
 // - queries weather api using location
 
-export default function SearchBar({ updateCoords }) {
-  getPosition();
-
-  // grabbing lat and lon for current location
-  // these will be used as default values when app loads for the first time
-  const lat = localStorage.getItem("latitude");
-  const lon = localStorage.getItem("longitude");
-
-  const [location, setLocation] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: lat,
-    lng: lon,
-  });
-
-  useEffect(() => {
-    updateCoords(coordinates);
-  }, [coordinates]);
+export default function SearchBar({ updateCoords , setLocation}) {
+  const [AutocompleteLocation, setAutocompleteLocation] = useState(""); //used so app does not query weather api every keystroke, only when setLocation is called
 
   const handleSelect = async (value) => {
     alert("Selected Location: " + value);
     const results = await geocodeByAddress(value);
     const latlng = await getLatLng(results[0]);
     setLocation(value);
-    setCoordinates(latlng);
+    updateCoords(latlng);
   };
 
   //gets address from lat/long and converts to readable address
@@ -55,7 +39,7 @@ export default function SearchBar({ updateCoords }) {
   };
 
   return (
-    <div className="m-12 flex">
+    <div className="flex">
       <svg
         className="h-6 w-6 m-2"
         xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +59,8 @@ export default function SearchBar({ updateCoords }) {
       <PlacesAutocomplete
         highlightFirstSuggestion={true}
         searchOptions={{ types: ["(cities)"] }}
-        value={location}
-        onChange={setLocation}
+        value={AutocompleteLocation}
+        onChange={setAutocompleteLocation}
         onSelect={handleSelect}
       >
         {AutocompleteBlock}
@@ -125,7 +109,7 @@ const AutocompleteBlock = ({
       className="h-10 bg-transparent outline-none placeholder-primary placeholder-opacity-100 overflow-hidden"
       {...getInputProps({ placeholder: "Search for places..." })}
     />
-    <div>
+    <div className="bg-white max-w-12 rounded-md absolute shadow-xl">
       {suggestions.slice(0, 4).map((suggestion, index) => {
         const style = {
           backgroundColor: suggestion.active ? "#edf2f7" : "#fff",

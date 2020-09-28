@@ -3,7 +3,6 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import Geocode from "react-geocode";
 
 //search bar component
 // - uses googles autocomplete and geocode API's to get location
@@ -12,30 +11,21 @@ import Geocode from "react-geocode";
 export default function SearchBar({ updateCoords , setLocation}) {
   const [AutocompleteLocation, setAutocompleteLocation] = useState(""); //used so app does not query weather api every keystroke, only when setLocation is called
 
+  function getAddress(){
+    const lat = localStorage.getItem("latitude");
+    const lon = localStorage.getItem("longitude");
+    updateCoords({
+      lat: lat,
+      lng: lon,
+    })
+  }
+
   const handleSelect = async (value) => {
     alert("Selected Location: " + value);
     const results = await geocodeByAddress(value);
     const latlng = await getLatLng(results[0]);
     setLocation(value);
     updateCoords(latlng);
-  };
-
-  //gets address from lat/long and converts to readable address
-  const getAddress = () => {
-    let latitude = localStorage.getItem("latitude");
-    let longitude = localStorage.getItem("longitude");
-
-    Geocode.setApiKey("AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk");
-    Geocode.fromLatLng(latitude, longitude).then(
-      (response) => {
-        const city = response.results[4].formatted_address;
-        alert("Location: " + city);
-        setLocation(city);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   };
 
   return (

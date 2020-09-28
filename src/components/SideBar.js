@@ -12,14 +12,14 @@ export default function SideBar({ location, setLocation, weather, updateCoords }
     let time = (d.getHours()+ ':' + ("0" + d.getMinutes()).slice(-2));
 
     useEffect(() => {
-        mainIconSrc = `http://openweathermap.org/img/wn/${weather.current.weather[0].icon}@5x.png`;
+        mainIconSrc = `http://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`;
     }, [weather])
     return(
         <div className="w-full h-full bg-gray-200"> {/* Delete div before merging with dev*/}
             <div className="m-0 p-6 w-2/7 h-screen bg-white">
                 <SearchBar location={location} setLocation={setLocation} updateCoords={updateCoords}/>
                 <div>
-                    <img className="h-64 w-64" src={mainIconSrc}></img>
+                    <img className="h-64 w-64" src={mainIconSrc} alt="Main Icon"></img>
                 </div>
                 <div className="w-full -mt-8 pb-6 text-left border-b">
                     <h1 className="text-8xl mx-8 ">{tempCelcius + 'º'}</h1>

@@ -16,7 +16,7 @@ export default function SideBar({ location, setLocation, weather, updateCoords }
     }, [weather])
     return(
         <div className="w-full h-full bg-gray-200"> {/* Delete div before merging with dev*/}
-            <div className="m-0 p-8 w-2/7 h-screen bg-white">
+            <div className="m-0 p-6 w-2/7 h-screen bg-white">
                 <SearchBar location={location} setLocation={setLocation} updateCoords={updateCoords}/>
                 <div>
                     <img className="h-64 w-64" src={mainIconSrc}></img>

@@ -39,9 +39,10 @@ export default function SearchBar({ updateCoords , setLocation}) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex items-center">
+      <div className="w-6">
       <svg
-        className="h-6 w-6 m-2"
+        className="h-6 m-2"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -54,6 +55,7 @@ export default function SearchBar({ updateCoords , setLocation}) {
           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
         />
       </svg>
+      </div>
 
       {/* source: https://www.youtube.com/watch?v=uJYqQdnw8LE */}
       <PlacesAutocomplete
@@ -68,7 +70,7 @@ export default function SearchBar({ updateCoords , setLocation}) {
 
       {/* Display Location Button*/}
       <button
-        className="h-8 w-8 p-1 bg-gray-200 rounded-full"
+        className="h-8 p-1 bg-gray-200 hover:bg-gray-300 rounded-full"
         onClick={() => {
           getAddress();
         }}
@@ -104,9 +106,9 @@ const AutocompleteBlock = ({
   getSuggestionItemProps,
   loading,
 }) => (
-  <div>
+  <div className="flex-grow">
     <input
-      className="h-10 bg-transparent outline-none placeholder-primary placeholder-opacity-100 overflow-hidden"
+      className="h-10 bg-transparent outline-none placeholder-primary placeholder-opacity-100 overflow-hidden flex-grow"
       {...getInputProps({ placeholder: "Search for places..." })}
     />
     <div className="bg-white max-w-12 rounded-md absolute shadow-xl">

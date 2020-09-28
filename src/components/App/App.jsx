@@ -22,6 +22,10 @@ export default function App() {
     lat: latFromGeolocator,
     lng: lonFromGeolocator,
   });
+
+  useEffect(() => {
+    console.log(weather);
+  }, [weather])
   
   useEffect(() => {
     const search = async (lat, lon) => {

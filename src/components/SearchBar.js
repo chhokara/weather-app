@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getPosition } from "../geolocation";
+import { getPosition } from "../functions/geolocation";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../SearchBar";
 import axios from "axios";
-import { getPosition } from "../../geolocation";
+import { getPosition } from "../../functions/geolocation";
+import CurrentWeather from "../CurrentWeather";
 
 export default function App() {
   getPosition();
@@ -13,28 +14,30 @@ export default function App() {
     lat: lat,
     lng: lon,
   });
+  const [weather, setWeather] = useState(null);
 
   const updateCoords = (latlng) => {
     setCoordinates(latlng);
   };
 
+  // We make a call to weather api every time the coordinates for selected city change
   useEffect(() => {
     const search = async (lat, lon) => {
       const KEY = "a7b37fc8fa9faed677e7e0bd192282ed";
       const { data } = await axios.get(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${KEY}`
       );
-
+      setWeather(data);
       console.log(data);
     };
-    const timeOutID = setTimeout(() => {
-      search(coordinates.lat, coordinates.lng);
-    }, 1000);
 
-    return () => {
-      clearTimeout(timeOutID);
-    };
+    search(coordinates.lat, coordinates.lng);
   }, [coordinates]);
 
-  return <SearchBar updateCoords={updateCoords} />;
+  return (
+    <div>
+      <SearchBar updateCoords={updateCoords} />
+      <CurrentWeather weather={weather} />
+    </div>
+  );
 }

@@ -10,10 +10,10 @@ export default function App() {
   const lonFromGeolocator = localStorage.getItem("longitude");
 
   const [weather, setWeather] = useState({ //used when loading initial weather
-    current:{
+    current:{ // object used when loading weather from api
       weather:[{
-          description:"Rain",
-          main: "Rain",
+          description: "Loading",
+          main: "Loading",
           icon: "10d",
       }],
       temp: 273.15,
@@ -25,14 +25,6 @@ export default function App() {
     lng: lonFromGeolocator,
   });
 
-  useEffect(()=>{ //runs only when page is first rendered
-    getAddress();
-  })
-
-  useEffect(() => {
-    console.log(weather);
-  }, [weather])
-  
   useEffect(() => {
     const search = async (lat, lon) => {
       const KEY = "a7b37fc8fa9faed677e7e0bd192282ed";
@@ -50,7 +42,8 @@ export default function App() {
     };
   }, [coordinates]);
 
-  function getAddress(){
+  //only runs when first rendered
+  useEffect(() => {
     const geocodeKEY = 'AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk';
     const search = async (lat, lon) => {
       axios.get(
@@ -61,7 +54,7 @@ export default function App() {
       });
     };
     search(coordinates.lat, coordinates.lng);
-  }
+  }, [])
 
   return(
      <SideBar updateCoords={setCoordinates} setLocation={setLocation} weather={weather} location={location}/>

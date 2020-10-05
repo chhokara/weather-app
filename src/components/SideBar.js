@@ -12,6 +12,7 @@ export default function SideBar({ location, setLocation, weather, updateCoords }
     let time = (d.getHours()+ ':' + ("0" + d.getMinutes()).slice(-2));
 
     useEffect(() => {
+        // eslint-disable-next-line
         mainIconSrc = `http://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`;
     }, [weather])
     return(

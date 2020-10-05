@@ -54,6 +54,7 @@ export default function App() {
       });
     };
     search(coordinates.lat, coordinates.lng);
+    // eslint-disable-next-line
   }, [])
 
   return(

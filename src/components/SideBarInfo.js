@@ -12,7 +12,7 @@ export default function SideBarInfo({weather, location}){
 
     unsplash.search.photos(location.split(",", 1), 1, 1, { orientation: "landscape" }).then(toJson).then(json => { //search unsplash using first location before first ','
         if(json.results[0] !== undefined){
-            changePic(json.results[0].urls.small);
+            changePic(json.results[0].urls.full);
         }
     });
     return(
@@ -29,7 +29,7 @@ export default function SideBarInfo({weather, location}){
                 </h3>
             </div>
             {/* Location Image */}
-            <div className="relative flex items-center h-24 mx-2 my-6 rounded-xl overflow-hidden float items-center hover:opacity-75">
+            <div className="relative flex h-24 mx-2 my-6 rounded-xl overflow-hidden float items-center hover:opacity-75">
                 <div className="absolute flex items-center justify-around inset-0">
                     <h2 className="text-white text-xl font-bold text-center">{location}</h2>
                 </div>

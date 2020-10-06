@@ -9,9 +9,12 @@ export default function App() {
   const latFromGeolocator = localStorage.getItem("latitude");
   const lonFromGeolocator = localStorage.getItem("longitude");
 
-  const [weather, setWeather] = useState({ //used when loading initial weather
-    current:{ // object used when loading weather from api
-      weather:[{
+  const [weather, setWeather] = useState({
+    //used when loading initial weather
+    current: {
+      // object used when loading weather from api
+      weather: [
+        {
           description: "Loading",
           main: "Loading",
           icon: "10d",
@@ -41,7 +44,7 @@ export default function App() {
 
   //only runs when first rendered
   useEffect(() => {
-    const geocodeKEY = 'AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk';
+    const geocodeKEY = "AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk";
     const search = async (lat, lon) => {
       axios
         .get(
@@ -54,7 +57,7 @@ export default function App() {
     };
     search(coordinates.lat, coordinates.lng);
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <div>

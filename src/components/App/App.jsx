@@ -9,13 +9,11 @@ export default function App() {
   const latFromGeolocator = localStorage.getItem("latitude");
   const lonFromGeolocator = localStorage.getItem("longitude");
 
-  const [weather, setWeather] = useState({
-    //used when loading initial weather
-    current: {
-      weather: [
-        {
-          description: "Rain",
-          main: "Rain",
+  const [weather, setWeather] = useState({ //used when loading initial weather
+    current:{ // object used when loading weather from api
+      weather:[{
+          description: "Loading",
+          main: "Loading",
           icon: "10d",
         },
       ],
@@ -31,16 +29,6 @@ export default function App() {
   });
 
   useEffect(() => {
-    //runs only when page is first rendered
-    getAddress();
-  });
-
-  useEffect(() => {
-    console.log(weather);
-  }, [weather]);
-
-  // We make a call to weather api every time the coordinates for selected city change
-  useEffect(() => {
     const search = async (lat, lon) => {
       const KEY = "a7b37fc8fa9faed677e7e0bd192282ed";
       const { data } = await axios.get(
@@ -51,8 +39,9 @@ export default function App() {
     search(coordinates.lat, coordinates.lng);
   }, [coordinates]);
 
-  function getAddress() {
-    const geocodeKEY = "AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk";
+  //only runs when first rendered
+  useEffect(() => {
+    const geocodeKEY = 'AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk';
     const search = async (lat, lon) => {
       axios
         .get(
@@ -64,7 +53,8 @@ export default function App() {
         });
     };
     search(coordinates.lat, coordinates.lng);
-  }
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div>

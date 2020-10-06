@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -18,6 +19,14 @@ export default function SearchBar({ updateCoords, setLocation }) {
       lat: lat,
       lng: lon,
     });
+    const geocodeKEY = 'AIzaSyDf9hbU6kjdJJrm2Z1TKXD_PMjNm_D5EJk';
+    axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&result_type=locality&key=${geocodeKEY}`
+      )
+      .then((res) => {
+        const address = res.data.plus_code.compound_code;
+        setLocation(address.substr(address.indexOf(" ") + 1));
+    });
   }
 
   const handleSelect = async (value) => {
@@ -26,6 +35,7 @@ export default function SearchBar({ updateCoords, setLocation }) {
     const latlng = await getLatLng(results[0]);
     setLocation(value);
     updateCoords(latlng);
+    setAutocompleteLocation(value);
   };
 
   return (

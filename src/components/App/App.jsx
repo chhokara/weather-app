@@ -35,9 +35,10 @@ export default function App() {
     const search = async (lat, lon) => {
       const KEY = "a7b37fc8fa9faed677e7e0bd192282ed";
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${KEY}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${KEY}`
       );
       setWeather(data);
+      console.log(data);
     };
     search(coordinates.lat, coordinates.lng);
   }, [coordinates]);

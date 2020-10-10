@@ -34,7 +34,7 @@ export default function SideBarInfo({ weather, location }) {
         <h3 className="flex items-center">
           <img
             className="h-8 w-8"
-            src="https://www.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png"
+            src="https://cdn2.iconfinder.com/data/icons/weather-blue-filled-line/32/Weather_rain_water_drop_rainy_wet_liquid-256.png"
             alt="Secondary Weather Icon"
           ></img>
           <span className="m-2">{weather.current.weather[0].description}</span>
